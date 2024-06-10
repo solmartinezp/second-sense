@@ -6,6 +6,7 @@
     align-items: center;
     position: relative;
     margin-top: 5%;
+    animation: slideUpFadeIn 0.5s ease-out forwards;
 }
 
 .header-img {
@@ -20,6 +21,17 @@
     font-style: normal;
     font-size: 28px;
 }
+
+@keyframes slideUpFadeIn {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 
 @media (max-width: 600px) {
     .header-img {

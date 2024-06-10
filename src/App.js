@@ -91,7 +91,7 @@ const App = () => {
       <div className="component-div">
         <TimerDisplay hours={time.hours} minutes={time.minutes} seconds={time.seconds} />
         <TimerButtons onStart={handleStart} onPause={handlePause} onRestart={handleRestart} disabled={disable} />
-        <p>Especifica un horario para comenzar:</p>
+        <p className='slide-up-fade-in'>Especifica un horario para comenzar:</p>
         <TimerInput inputTime={inputTime} onInputChange={handleInputChange} />
 
         <PlusButton />

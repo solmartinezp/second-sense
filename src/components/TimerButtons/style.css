@@ -54,4 +54,16 @@
 
 .btn-div {
     margin-bottom: 2%;
+    animation: slideUpFadeIn 0.5s ease-out forwards;
 }
+
+@keyframes slideUpFadeIn {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
