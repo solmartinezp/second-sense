@@ -1,0 +1,28 @@
+.header-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 5%;
+}
+
+.header-img {
+    position: relative;
+    width: 10%;
+}
+
+.header-title {
+    color: #BDA5AC;
+    font-family: "Zen Dots", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 28px;
+}
+
+@media (max-width: 600px) {
+    .header-img {
+        width: 25%;
+    }
+  }

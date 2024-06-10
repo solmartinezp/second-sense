@@ -1,0 +1,57 @@
+.btn {
+    padding: 5px 8px 5px 8px;
+    width: fit-content;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-left: 8px;
+    background-color: #ffe0eb;
+    border: none;
+    font-family: "Zen Dots", sans-serif;
+    font-weight: 100;
+    color: #564147;
+}
+
+.btn-disabled {
+    padding: 5px 8px 5px 8px;
+    width: fit-content;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-left: 8px;
+    background-color: rgb(212, 208, 208);
+    border: none;
+    font-family: "Zen Dots", sans-serif;
+    font-weight: 100;
+    color: white;
+}
+
+.btn-disabled:hover {
+    cursor:not-allowed;
+}
+
+.btn-plus {
+    padding: 0px 10px 2px 10px;
+    width: fit-content;
+    border-radius: 40px;
+    font-size: 30px;
+    background-color: #ffe0eb;
+    border: none;
+    font-family: "Zen Dots", sans-serif;
+    font-weight: 100;
+    color: #564147;
+}
+
+.btn-plus:hover {
+    background-color: #564147;
+    color: #ffe0eb;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #564147;
+    color: #ffe0eb;
+    cursor: pointer;
+}
+
+.btn-div {
+    margin-bottom: 2%;
+}
