@@ -3,7 +3,7 @@
     width: fit-content;
     border-radius: 8px;
     font-size: 14px;
-    margin-left: 8px;
+    margin-left: 10px;
     background-color: #ffe0eb;
     border: none;
     font-family: "Zen Dots", sans-serif;
@@ -12,7 +12,7 @@
 }
 
 .btn-disabled {
-    padding: 5px 8px 5px 8px;
+    padding: 8px;
     width: fit-content;
     border-radius: 8px;
     font-size: 14px;
@@ -53,22 +53,27 @@
     cursor: pointer;
 }
 
+.btn:nth-of-type(1):hover {
+    animation: biggerBtn 0.2s ease-in forwards;
+}
+
+.btn:nth-of-type(2):hover {
+    animation: biggerBtn 0.2s ease-in forwards;
+}
+
+.btn:nth-of-type(3):hover {
+    animation: biggerBtn 0.2s ease-in forwards;
+}
+
 .btns-div {
     margin-top: 5%;
-    animation: slideUpFadeIn 0.5s ease-out forwards;
 }
 
-.btn-div { 
-    animation: slideUpFadeIn 0.5s ease-out forwards;
-}
-
-@keyframes slideUpFadeIn {
+  @keyframes biggerBtn {
     from {
-      transform: translateY(20px);
-      opacity: 0;
+        padding: 10px;
     }
     to {
-      transform: translateY(0);
-      opacity: 1;
+      padding: 10.2px;
     }
   }

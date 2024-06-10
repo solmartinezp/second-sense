@@ -10,6 +10,7 @@ import './App.css';
 const App = () => {
   const [disable, setDisable] = useState(true);
   const [audio, setAudio] = useState(new Audio(Ringtone));
+  const [shake, setShake] = useState(false);
 
   const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isActive, setIsActive] = useState(false);
@@ -52,10 +53,11 @@ const App = () => {
     if (inputs.length === 0 || inputs[index].interval === 0) return;
     logTimeoutRef.current = setTimeout(() => {
       audio.play();
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
       startLogTimeout((index + 1) % inputs.length);
     }, inputs[index].interval * 1000);
   };
-
 
   const handleStart = () => {
     setIsActive(true);
@@ -107,7 +109,7 @@ const App = () => {
     <div className="main">
       <HeaderTitle />
       <div className="component-div">
-        <TimerDisplay hours={time.hours} minutes={time.minutes} seconds={time.seconds} />
+        <TimerDisplay hours={time.hours} minutes={time.minutes} seconds={time.seconds} shake={shake} />
         <p className='slide-up-fade-in'>Especifica un horario para comenzar:</p>
         {inputs.map((input) => (
           <div key={input.id} className="input-div">
