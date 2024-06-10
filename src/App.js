@@ -10,12 +10,13 @@ import './App.css';
 const App = () => {
   const [disable, setDisable] = useState(true);
   const [audio, setAudio] = useState(new Audio(Ringtone));
+
   const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isActive, setIsActive] = useState(false);
-  const [inputTime, setInputTime] = useState('');
-  const [intervalTime, setIntervalTime] = useState(0);
+
+  const [inputs, setInputs] = useState([{ id: 1, value: '', interval: 0 }]);
   const timerIntervalRef = useRef(null);
-  const logIntervalRef = useRef(null);
+  const logTimeoutRef = useRef(null);
 
   const incrementTime = () => {
     setTime((prevTime) => {
@@ -36,20 +37,25 @@ const App = () => {
   useEffect(() => {
     if (isActive) {
       timerIntervalRef.current = setInterval(incrementTime, 1000);
-      if (intervalTime > 0) {
-        logIntervalRef.current = setInterval(() => {
-           audio.play();
-        }, intervalTime * 1000);
-      }
+      startLogTimeout(0);
     } else {
       clearInterval(timerIntervalRef.current);
-      clearInterval(logIntervalRef.current);
+      clearTimeout(logTimeoutRef.current);
     }
     return () => {
       clearInterval(timerIntervalRef.current);
-      clearInterval(logIntervalRef.current);
+      clearTimeout(logTimeoutRef.current);
     };
-  }, [isActive, intervalTime]);
+  }, [isActive, inputs]);
+
+  const startLogTimeout = (index) => {
+    if (inputs.length === 0 || inputs[index].interval === 0) return;
+    logTimeoutRef.current = setTimeout(() => {
+      audio.play();
+      startLogTimeout((index + 1) % inputs.length);
+    }, inputs[index].interval * 1000);
+  };
+
 
   const handleStart = () => {
     setIsActive(true);
@@ -62,39 +68,57 @@ const App = () => {
   const handleRestart = () => {
     setIsActive(false);
     setTime({ hours: 0, minutes: 0, seconds: 0 });
+    clearTimeout(logTimeoutRef.current);
+    setInputs([{ id: 1, value: '', interval: 0 }]);
+    setDisable(true);
   };
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputTime(value);
-
-    const [hh, mm, ss] = value.split(':').map(Number);
-    if (!isNaN(hh) && !isNaN(mm) && !isNaN(ss)) {
-      const totalSeconds = hh * 3600 + mm * 60 + ss;
-      setIntervalTime(totalSeconds);
-    } else {
-      setIntervalTime(0);
-    }
-  };
-
-  useEffect(() => {
-    if (!inputTime) {
+  const handleInputChange = (id, value) => {
+    if (value === '00:00:00') {
       setDisable(true);
     } else {
       setDisable(false);
     }
-  }, [inputTime]);
+    setInputs((prevInputs) =>
+      prevInputs.map((input) =>
+        input.id === id
+          ? { ...input, value, interval: calculateInterval(value) }
+          : input
+      )
+    );
+  };
+
+  const calculateInterval = (value) => {
+    const [hh, mm, ss] = value.split(':').map(Number);
+    if (!isNaN(hh) && !isNaN(mm) && !isNaN(ss)) {
+      return hh * 3600 + mm * 60 + ss;
+    }
+    return 0;
+  };
+
+  const handleAddInput = () => {
+    setInputs((prevInputs) => [
+      ...prevInputs,
+      { id: prevInputs.length + 1, value: '', interval: 0 },
+    ]);
+  };
 
   return (
     <div className="main">
       <HeaderTitle />
       <div className="component-div">
         <TimerDisplay hours={time.hours} minutes={time.minutes} seconds={time.seconds} />
-        <TimerButtons onStart={handleStart} onPause={handlePause} onRestart={handleRestart} disabled={disable} />
         <p className='slide-up-fade-in'>Especifica un horario para comenzar:</p>
-        <TimerInput inputTime={inputTime} onInputChange={handleInputChange} />
-
-        <PlusButton />
+        {inputs.map((input) => (
+          <div key={input.id} className="input-div">
+            <TimerInput
+              inputTime={input.value}
+              onInputChange={(e) => handleInputChange(input.id, e.target.value)}
+            />
+            <PlusButton addInput={handleAddInput} />
+          </div>
+        ))}
+        <TimerButtons onStart={handleStart} onPause={handlePause} onRestart={handleRestart} disabled={disable} />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 .btn {
-    padding: 5px 8px 5px 8px;
+    padding: 10px;
     width: fit-content;
     border-radius: 8px;
     font-size: 14px;
@@ -29,15 +29,16 @@
 }
 
 .btn-plus {
-    padding: 0px 10px 2px 10px;
+    padding: 0px 7px 1px 7px;
     width: fit-content;
-    border-radius: 40px;
-    font-size: 30px;
+    border-radius: 30px;
+    font-size: 25px;
     background-color: #ffe0eb;
     border: none;
     font-family: "Zen Dots", sans-serif;
     font-weight: 100;
     color: #564147;
+    margin-left: 10px;
 }
 
 .btn-plus:hover {
@@ -52,8 +53,12 @@
     cursor: pointer;
 }
 
-.btn-div {
-    margin-bottom: 2%;
+.btns-div {
+    margin-top: 5%;
+    animation: slideUpFadeIn 0.5s ease-out forwards;
+}
+
+.btn-div { 
     animation: slideUpFadeIn 0.5s ease-out forwards;
 }
 

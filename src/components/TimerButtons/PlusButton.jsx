@@ -1,11 +1,11 @@
 import React from 'react';
 import './style.css';
 
-const PlusButton = () => {
+const PlusButton = ({ addInput }) => {
   return (
     <div className='btn-div'>
       <button className="btn-plus"
-        // onClick={onStart}
+        onClick={addInput}
       >
         +
     </button>
